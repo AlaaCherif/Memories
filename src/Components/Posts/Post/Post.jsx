@@ -59,7 +59,7 @@ export default function Post({ post, setCurrentId }) {
         variant='h5'
         component='h2'
       >
-        {post.title}
+        {post.title}  
       </Typography>
       <CardContent>
         <Typography variant='body2' color='textSecondary' component='p'>

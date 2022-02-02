@@ -17,9 +17,7 @@ const App = () => {
   return (
     <Container maxwidth='lg'>
       <AppBar className={classes.appBar} position='static' color='inherit'>
-        <Typography variant='h2' align='center'>
-          Memories
-        </Typography>
+        <h1>Memories</h1>
         <img
           className={classes.image}
           src={memories}

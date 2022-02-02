@@ -1,5 +1,5 @@
 import useStyles from './styles';
-import { TextField, Button, Typography, Paper } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { useState, useEffect } from 'react';
 import FileBase from 'react-file-base64';
 import { useDispatch } from 'react-redux';
@@ -40,12 +40,14 @@ function Form({ currentId, setCurrentId }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (currentId) {
-      dispatch(updatePost(currentId, postData));
-    } else {
-      dispatch(createPost(postData));
+    if (postData.selectedFile) {
+      if (currentId) {
+        dispatch(updatePost(currentId, postData));
+      } else {
+        dispatch(createPost(postData));
+      }
+      clear();
     }
-    clear();
   };
 
   return (
@@ -53,46 +55,65 @@ function Form({ currentId, setCurrentId }) {
       <form
         autoComplete='off'
         noValidate
-        className={`${classes.form} ${classes.root}`}
+        className={`${classes2.form} ${classes.root}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant='h6'>{`${
-          currentId ? 'Editing' : 'Creating'
-        } a Memory`}</Typography>
-        <TextField
-          name='creator'
-          variant='outlined'
-          label='Creator'
-          fullWidth
-          value={postData.creator}
-          onChange={e => setPostData({ ...postData, creator: e.target.value })}
-        />
-        <TextField
-          name='title'
-          variant='outlined'
-          label='Title'
-          fullWidth
-          value={postData.title}
-          onChange={e => setPostData({ ...postData, title: e.target.value })}
-        />
-        <TextField
-          name='message'
-          variant='outlined'
-          label='Message'
-          fullWidth
-          value={postData.message}
-          onChange={e => setPostData({ ...postData, message: e.target.value })}
-        />
-        <TextField
-          name='tags'
-          variant='outlined'
-          label='Tags'
-          fullWidth
-          value={postData.tags}
-          onChange={e =>
-            setPostData({ ...postData, tags: e.target.value.split(',') })
-          }
-        />
+        <h1>{currentId ? 'Editing Memory' : 'Creating Memory'} </h1>
+        <div className={classes2.group}>
+          <input
+            className={classes2.input}
+            type='text'
+            required
+            value={postData.creator}
+            onChange={e =>
+              setPostData({ ...postData, creator: e.target.value })
+            }
+          />
+          <span className={classes2.highlight}></span>
+          <span className={classes2.bar}></span>
+          <label className={classes2.label}>Creator</label>
+        </div>
+        <div className={classes2.group}>
+          <input
+            className={classes2.input}
+            type='text'
+            value={postData.title}
+            required
+            onChange={e => setPostData({ ...postData, title: e.target.value })}
+          />
+          <span className={classes2.highlight}></span>
+          <span className={classes2.bar}></span>
+          <label className={classes2.label}>Title</label>
+        </div>
+        <div className={classes2.group}>
+          <input
+            type='text'
+            className={classes2.input}
+            value={postData.message}
+            required
+            onChange={e =>
+              setPostData({ ...postData, message: e.target.value })
+            }
+          />
+          <span className={classes2.highlight}></span>
+          <span className={classes2.bar}></span>
+          <label className={classes2.label}>Message</label>
+        </div>
+        <div className={classes2.group}>
+          <input
+            className={classes2.input}
+            type='text'
+            value={postData.tags}
+            required
+            onChange={e =>
+              setPostData({ ...postData, tags: e.target.value.split(',') })
+            }
+          />
+          <span className={classes2.highlight}></span>
+          <span className={classes2.bar}></span>
+          <label className={classes2.label}>Tags</label>
+        </div>
+
         <div>
           <div className={classes.fileInput}>
             <FileBase
