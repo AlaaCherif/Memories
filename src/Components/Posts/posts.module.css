@@ -3,5 +3,11 @@
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
-  width:60%
+  width: 60%;
+}
+@media screen and (max-width: 1250px) {
+  .container {
+    width: 100%;
+    justify-content: center;
+  }
 }

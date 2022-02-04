@@ -1,0 +1,29 @@
+.innerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.outerContainer {
+  max-width: 70%;
+  margin: auto;
+}
+.grow {
+  animation: createBox 0.25s;
+}
+@keyframes createBox {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@media screen and (max-width: 768px) {
+  .innerContainer {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  .outerContainer {
+    max-width: 100%;
+  }
+}

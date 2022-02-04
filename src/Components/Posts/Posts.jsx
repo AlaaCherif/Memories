@@ -1,24 +1,32 @@
-import React from 'react';
-import Post from './Post/Post';
-import useStyles from './styles';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Grid, CircularProgress } from '@material-ui/core';
-import classes2 from './posts.module.css';
+import classes from './posts.module.css';
 import Post2 from './Post/Post2';
+import PortalModal from '../Posts/PortalModal';
+import Loader from '../Loader/Loader';
 
 export default function Posts({ setCurrentId }) {
+  const [modal, setModal] = useState(null);
   const posts = useSelector(state => state.posts);
-  const classes = useStyles();
-  return !1 ? (
-    <CircularProgress />
+  const handleHide = e => {
+    if (e.target.id === 'outer') setModal(null);
+  };
+  return !posts.length ? (
+    <Loader />
   ) : (
-    <div className={classes2.container}>
+    <div className={classes.container}>
+      {modal === null ? (
+        <></>
+      ) : (
+        <PortalModal post={modal} handleHide={handleHide} />
+      )}
       {posts.map(post => (
-        <Post2 key={post._id} post={post} />
-        // <Grid key={post._id} item xs={12} sm={6}>
-        //   {/* <Post post={post} setCurrentId={setCurrentId} /> */}
-
-        // </Grid>
+        <Post2
+          key={post._id}
+          post={post}
+          setCurrentId={setCurrentId}
+          setModal={setModal}
+        />
       ))}
     </div>
   );
